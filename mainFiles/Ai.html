@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat Bot</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Neumorphism effect */
+        .chat-container {
+            background-color: #e0e5ec;
+            width: 450px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 10px 10px 30px #b8b9be, -10px -10px 30px #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease-in-out;
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        /* Adding 3D rotation on hover */
+        .chat-container:hover {
+            transform: perspective(1000px) rotateY(10deg);
+            box-shadow: 15px 15px 40px #b8b9be, -15px -15px 40px #ffffff;
+        }
+
+        /* Text Styling */
+        h2, h3, h4 {
+            color: #2c3e50;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Glassmorphism effect on textarea */
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: none;
+            backdrop-filter: blur(10px);
+            resize: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        /* Hovering over textarea for glow effect */
+        textarea:hover, textarea:focus {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            outline: none;
+        }
+
+        /* Button styles with gradient and neumorphism */
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 50px;
+            margin: 10px;
+            cursor: pointer;
+            background: linear-gradient(145deg, #74ebd5, #ACB6E5);
+            color: #fff;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Adding shadow and scale effect on hover */
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom button for each action */
+        #submit {
+            background: linear-gradient(145deg, #67d3c7, #5ba8a3);
+        }
+
+        #prev {
+            background: linear-gradient(145deg, #5283f0, #3f6cf2);
+        }
+
+        #next {
+            background: linear-gradient(145deg, #f05454, #f28d8d);
+        }
+
+        #finish {
+            background: linear-gradient(145deg, #ff416c, #ff4b2b);
+        }
+
+        /* Button shaking effect */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        #finish:hover {
+            animation: shake 0.5s ease;
+        }
+
+        /* Subtle animations for elements */
+        .chat-container, button, textarea {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Response area */
+        #response p {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        /* Response hover */
+        #response p:hover {
+            background-color: #e1e1e1;
+        }
+
+        /* Button group */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .chat-container {
+                width: 100%;
+                padding: 20px;
+                box-shadow: none;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+
+            textarea {
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div id="quesDiv">
+            <h2 id="ques">Q1: What is an Array?</h2>
+        </div>
+
+        <div id="Answer">
+            <h4>Answer:</h4>
+            <textarea id="ansText" placeholder="Type your answer here..."></textarea>
+        </div>
+
+        <button id="submit" onclick="submitQues()">Submit</button>
+
+        <div id="response">
+            <h4>Response:</h4>
+            <p id="resText">Response will appear here...</p>
+        </div>
+
+        <div class="button-group">
+            <button id="prev" class="enablePrev">Previous</button>
+            <button id="next" class="enableNext">Next</button>
+            <button id="finish">Finish Test</button>
+        </div>
+
+        <h3 id="showResult">Your result will be displayed here</h3>
+    </div>
+
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
+    <script type="module" src="./Ai.js"></script>
+</body>
+</html>

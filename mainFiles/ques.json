@@ -1,0 +1,42 @@
+[
+    {
+      "Ques":"What is an Array?",
+      "id":1
+    },
+    {
+      "Ques":"Explain the Concept of Recursion.",
+      "id":2
+    },
+    {
+      "Ques":"What is Object-Oriented Programming (OOP)?",
+      "id":3
+    },
+    {
+      "Ques":"What are the Different Types of Software Testing?",
+      "id":4
+    },
+    {
+      "Ques":"What is a Database Index?",
+      "id":5
+    },
+    {
+      "Ques":"Explain the OSI Model.",
+      "id":6
+    },
+    {
+      "Ques":"What is a Deadlock in Operating Systems?",
+      "id":7
+    },
+    {
+      "Ques":"What are Design Patterns?",
+      "id":8
+    },
+    {
+      "Ques":"What is the Difference Between HTTP and HTTPS?",
+      "id":9
+    },
+    {
+      "Ques":"What is Machine Learning?",
+      "id":10
+    }
+  ]
